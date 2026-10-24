@@ -42,5 +42,9 @@ sentiment-app/
 
 | Rôle | Nom | Identifiant GitHub | Travail de la semaine 1 |
 | --- | --- | --- | --- |
+<<<<<<< Updated upstream
 | Membre A | HILAL HIND| [@userhilal] | |
+=======
+| Membre A | HILAL HIND | [@userhilal] | |
+>>>>>>> Stashed changes
 | Membre B | [Nom 2] | [@login] | |
