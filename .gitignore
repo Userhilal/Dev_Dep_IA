@@ -12,6 +12,7 @@ build/
 # Artefacts lourds (DVC et MLflow à partir de la semaine 7)
 models/*
 !models/.gitkeep
+!models/metrics.json
 data/*
 !data/.gitkeep
 !data/sample_reviews.csv
@@ -28,3 +29,12 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+
+# TP4
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+!data/jeu_or.csv
+
+# TP5
+!data/avis_exemple.csv

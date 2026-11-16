@@ -1,0 +1,21 @@
+text,attendu,difficulte,erreur_connue
+Livraison très rapide et colis parfaitement emballé,POSITIVE,,
+Service client poli et efficace,POSITIVE,,Prédiction NEGATIVE observée malgré un avis positif sur le service client
+Produit conforme à la description et fonctionne bien,POSITIVE,,
+Très satisfait de mon achat je recommande,POSITIVE,,
+La commande est arrivée en avance,POSITIVE,,
+Bonne qualité pour ce prix,POSITIVE,,
+Le remboursement a été effectué rapidement,POSITIVE,,
+Je suis ravi du fonctionnement de ce produit,POSITIVE,,
+Je ne suis pas déçu de cette commande,POSITIVE,négation,
+Au début j'avais des doutes mais finalement le produit est excellent,POSITIVE,avis mitigé,
+Colis abîmé et article inutilisable,NEGATIVE,,
+Produit cassé dès la première utilisation,NEGATIVE,,
+Livraison en retard et vendeur injoignable,NEGATIVE,,Prédiction POSITIVE observée malgré le retard et le vendeur injoignable
+Je regrette cet achat,NEGATIVE,,Prédiction POSITIVE observée malgré une expression explicite de regret
+Impossible de contacter le service client,NEGATIVE,,
+La batterie ne fonctionne plus après deux jours,NEGATIVE,,
+Qualité médiocre et emballage insuffisant,NEGATIVE,,Prédiction POSITIVE observée malgré deux critiques négatives
+Formidable encore un colis perdu,NEGATIVE,ironie,
+Livraison rapide mais produit défectueux,NEGATIVE,avis mitigé,
+Serveur aimable mais repas froid et immangeable,NEGATIVE,hors domaine,
