@@ -1,5 +1,26 @@
 # sentiment-app : dépôt du binôme
 
+## Installer le paquet distribué (v1.0.1)
+
+Python 3.11 minimum. Pour un nouvel utilisateur, créer un environnement virtuel
+puis installer **la roue GitHub Release** ; le modèle est déjà inclus.
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install https://github.com/Userhilal/Dev_Dep_IA/releases/download/v1.0.1/sentiment_app-1.0.1-py3-none-any.whl
+sentiment --version
+sentiment "Livraison rapide, très satisfait"
+sentiment --json "Produit cassé, à fuir"
+python -c "from sentiment_app import predict; print(predict('Produit conforme'))"
+python -m pip check
+```
+
+Pour les erreurs : `sentiment " "` (code 2), `sentiment` (aide).
+Anciennes commandes conservées : `sentiment predict`, `sentiment serve`,
+`sentiment ui`. Consulter [README-PAQUET.md](README-PAQUET.md) pour le détail.
+
+
 Application fil rouge du cours *Développement et déploiement d'applications intelligentes*.
 Ce dépôt grandit chaque semaine ; la semaine 1 met en place le cadrage et l'environnement.
 

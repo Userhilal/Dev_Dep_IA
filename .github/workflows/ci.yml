@@ -30,8 +30,8 @@ jobs:
           mkdir -p sentiment_app/modele
           cp models/sentiment.joblib sentiment_app/modele/
           python -m build
-          python -m zipfile -l dist/sentiment_app-1.0.0-py3-none-any.whl | grep 'sentiment_app/modele/sentiment.joblib'
+          python -m zipfile -l dist/sentiment_app-1.0.1-py3-none-any.whl | grep 'sentiment_app/modele/sentiment.joblib'
           python -m venv /tmp/roue
-          /tmp/roue/bin/pip install dist/sentiment_app-1.0.0-py3-none-any.whl
+          /tmp/roue/bin/pip install dist/sentiment_app-1.0.1-py3-none-any.whl
           cd /tmp
           /tmp/roue/bin/sentiment predict "Livraison rapide, produit conforme, très satisfait"

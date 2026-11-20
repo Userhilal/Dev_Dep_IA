@@ -64,7 +64,9 @@ def _interface(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else argv
-    if argv and argv[0] not in ("predict", "serve", "ui") and not argv[0].startswith("-"):
+    if argv and argv[0] not in ("predict", "serve", "ui") and (
+        argv[0] == "--json" or not argv[0].startswith("-")
+    ):
         en_json = "--json" in argv
         texte = [mot for mot in argv if mot != "--json"]
         return _direct(texte, en_json)
@@ -84,6 +86,10 @@ def main(argv: list[str] | None = None) -> int:
 
     interface = commandes.add_parser("ui", help="lance Streamlit (l'API doit tourner)")
     interface.set_defaults(fonction=_interface)
+
+    if not argv:
+        parser.print_help()
+        return 0
 
     args = parser.parse_args(argv)
     return int(args.fonction(args))

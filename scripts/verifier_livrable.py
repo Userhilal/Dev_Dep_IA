@@ -14,7 +14,7 @@ import zipfile
 from pathlib import Path
 
 RACINE = Path(__file__).resolve().parents[1]
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 ROUE = RACINE / "dist" / f"sentiment_app-{VERSION}-py3-none-any.whl"
 ARCHIVE = RACINE / "dist" / f"sentiment_app-{VERSION}.tar.gz"
 RAPPORT = RACINE / "docs" / "livrable-tp4.txt"
@@ -67,8 +67,8 @@ def main() -> int:
     changelog = (RACINE / "CHANGELOG.md").read_text(encoding="utf-8")
     noter("[1.0.0]" in changelog, "CHANGELOG décrit la version [1.0.0]")
     tag = lancer(["git", "tag", "--points-at", "HEAD"], RACINE)
-    noter(tag.returncode == 0 and "v1.0.0" in tag.stdout.splitlines(),
-          "étiquette Git sur le dernier commit : v1.0.0")
+    noter(tag.returncode == 0 and "v1.0.1" in tag.stdout.splitlines(),
+          "étiquette Git sur le dernier commit : v1.0.1")
     if ERREURS:
         return terminer()
     with tempfile.TemporaryDirectory(prefix="verif-manuel-") as tmp:
@@ -95,7 +95,10 @@ def main() -> int:
             print(tests.stderr[-1500:])
         bilan = (tests.stdout.strip().splitlines() or [""])[-1]
         noter(tests.returncode == 0 and "skipped" not in bilan,
-              "six contrôles RECONSTITUÉS sur le paquet installé", bilan)
+              "dix contrôles RECONSTITUÉS sur le paquet installé", bilan)
+        integrite = lancer([str(python), "-m", "pip", "check"], dossier)
+        noter(integrite.returncode == 0, "dependances de la roue coherentes (pip check)",
+              integrite.stdout.strip() or integrite.stderr.strip())
         cmd = lancer([str(commande), "predict", "Produit cassé et service injoignable, à fuir"], dossier)
         noter(cmd.returncode == 0 and '"label": "NEGATIVE"' in cmd.stdout,
               "commande installée : prédiction hors du dépôt", cmd.stdout.strip())

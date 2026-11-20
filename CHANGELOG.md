@@ -1,5 +1,15 @@
 # Journal des versions
 
+## [1.0.1] - 2026-11-20 — Compatibilité du guide de recette V1.1
+
+- `from sentiment_app import predict` expose une fonction directement appelable.
+- `sentiment --json "avis"` accepte l'option JSON avant le texte.
+- `sentiment` sans argument affiche l'aide ; texte vide refuse avec code 2.
+- Conservation des anciennes commandes `sentiment predict`, `serve` et `ui`.
+- Dix contrôles reconstitués dans l'environnement isolé et `pip check`.
+- Le modèle binaire reste exclu de Git : installer la roue de la Release.
+
+
 ## [1.0.0] - 2026-11-20 — Manuel Volume 1
 
 - API `/v1` protégée par des clés et des rôles `client`/`admin` ; erreurs stables et CORS contrôlé.
