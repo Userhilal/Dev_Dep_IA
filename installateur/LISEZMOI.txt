@@ -1,0 +1,27 @@
+sentiment-app 1.0.1 — installateur Windows autonome
+====================================================
+
+L'application embarque son propre interpreteur Python et son modele de sentiment.
+Aucune installation prealable de Python n'est necessaire chez l'utilisateur.
+
+Dans un NOUVEAU terminal Windows (CMD ou PowerShell) :
+
+  sentiment --version
+  sentiment "Livraison rapide, tres satisfait"
+  sentiment --json "Produit casse et service injoignable"
+  sentiment " "
+
+Le texte vide doit etre refuse avec le code de sortie 2.
+Si sentiment n'est pas trouve, utilisez le raccourci du menu Demarrer
+ou ouvrez un nouveau terminal. Le PATH peut etre ajoute durant l'installation.
+
+Pour desinstaller : Parametres Windows > Applications > sentiment-app.
+
+Avertissements :
+- Modele de demonstration : il peut se tromper, meme avec une forte confiance.
+- Le setup.exe non signe peut declencher SmartScreen : verifiez son origine.
+- Cet installateur ne fournit PAS un serveur accessible sur Internet.
+- Ne chargez que des modeles Joblib issus de sources de confiance.
+
+Code : https://github.com/Userhilal/Dev_Dep_IA
+Release Python : https://github.com/Userhilal/Dev_Dep_IA/releases/tag/v1.0.1

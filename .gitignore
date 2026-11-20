@@ -36,3 +36,7 @@ docs/livrable-tp4.txt
 
 # Fichiers generes par Maven
 java/avis-service/target/
+
+# Installateur Windows : fichiers generes
+/installateur/build/
+/installateur/Output/
