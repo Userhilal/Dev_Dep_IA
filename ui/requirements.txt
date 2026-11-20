@@ -1,0 +1,4 @@
+# Dépendances de ui/cloud_app.py (Streamlit Cloud recherche d'abord près de l'entrée).
+streamlit==1.39.1
+pandas==2.2.3
+https://github.com/Userhilal/Dev_Dep_IA/releases/download/v1.0.1/sentiment_app-1.0.1-py3-none-any.whl
