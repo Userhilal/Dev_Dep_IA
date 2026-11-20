@@ -35,3 +35,16 @@ jobs:
           /tmp/roue/bin/pip install dist/sentiment_app-1.0.1-py3-none-any.whl
           cd /tmp
           /tmp/roue/bin/sentiment predict "Livraison rapide, produit conforme, très satisfait"
+
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+          cache-dependency-path: java/avis-service/pom.xml
+      - name: Compiler Java et executer JUnit
+        run: mvn -B -ntp -f java/avis-service/pom.xml clean verify
