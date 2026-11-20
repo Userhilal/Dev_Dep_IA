@@ -5,15 +5,10 @@ Le modèle est chargé une seule fois.
 Un seuil d'abstention évite les prédictions trop incertaines.
 """
 
-import sys
-from pathlib import Path
 from typing import Literal, TypedDict
 
-RACINE = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RACINE / "src"))
-
-from predict import charger_modele  # noqa: E402
-from predict import predict as _predict  # noqa: E402
+from sentiment_app.predict import charger_modele
+from sentiment_app.predict import predict as _predict
 
 SEUIL_ABSTENTION = 0.60
 
@@ -38,7 +33,7 @@ class PredictionAPI(TypedDict):
 
 
 class SentimentClassifier:
-    """Adaptateur du modèle TP2 pour FastAPI."""
+    """Adaptateur du modèle sentiment_app pour FastAPI."""
 
     model_name = "tfidf-logreg (TP2, models/sentiment.joblib)"
 
