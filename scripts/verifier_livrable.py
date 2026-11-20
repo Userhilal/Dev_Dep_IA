@@ -81,8 +81,18 @@ def main() -> int:
         if not noter(install.returncode == 0, "installation de la roue dans un environnement neuf",
                      (install.stderr.strip().splitlines() or [""])[-1] if install.returncode else ""):
             return terminer()
+        # Copier le test hors du dépôt : pytest.ini du projet ajoute ". src" au
+        # sys.path et ferait charger les sources au lieu de la roue installée.
+        test_isole = dossier / "test_paquet.py"
+        test_isole.write_bytes((RACINE / "tests" / "test_paquet.py").read_bytes())
+        configuration = dossier / "pytest.ini"
+        configuration.write_text("[pytest]\n", encoding="utf-8")
         tests = lancer([str(python), "-m", "pytest", "-q", "-p", "no:cacheprovider",
-                        str(RACINE / "tests" / "test_paquet.py")], dossier)
+                        "-c", str(configuration), str(test_isole)], dossier)
+        if tests.returncode:
+            print("\nDétails des tests de la roue :")
+            print(tests.stdout[-8000:])
+            print(tests.stderr[-1500:])
         bilan = (tests.stdout.strip().splitlines() or [""])[-1]
         noter(tests.returncode == 0 and "skipped" not in bilan,
               "six contrôles RECONSTITUÉS sur le paquet installé", bilan)
