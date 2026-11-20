@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analyse de sentiment — API /v1</title>
+  <style>
+    :root {font-family:system-ui,Arial,sans-serif;color:#233047;background:#f5f7fc}
+    body {max-width:760px;margin:45px auto;padding:0 18px}
+    main {background:white;border:1px solid #e5eaf2;border-radius:17px;padding:26px;box-shadow:0 12px 35px #20305012}
+    h1{font-size:1.55rem;margin-top:0}p{color:#62718d} label{display:block;font-weight:650;margin-top:18px}
+    input,textarea{box-sizing:border-box;display:block;width:100%;padding:12px;border:1px solid #bac6d9;border-radius:9px;margin-top:6px;font:inherit}
+    textarea{min-height:100px} button{background:#3347aa;color:white;border:0;border-radius:9px;padding:13px 20px;margin-top:20px;font-weight:700;cursor:pointer}
+    output{display:block;white-space:pre-wrap;margin-top:18px;padding:14px;background:#edf1fb;border-radius:9px;min-height:42px}
+    small{color:#6e7686}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Analyse de sentiment</h1>
+    <p>Client web du TP2 — API sécurisée <code>/v1</code>.</p>
+    <form id="analyse">
+      <label for="adresse">Adresse de l'API</label>
+      <input id="adresse" value="http://127.0.0.1:8000" required>
+      <label for="cle">Clé d'API (rôle client)</label>
+      <input id="cle" type="password" autocomplete="off" required>
+      <small>Clé visible par l'utilisateur du navigateur : ne jamais utiliser une clé administrateur.</small>
+      <label for="avis">Avis client</label>
+      <textarea id="avis" maxlength="2000" required>Livraison rapide, produit conforme, très satisfait</textarea>
+      <button type="submit">Classer l'avis</button>
+    </form>
+    <output id="resultat" role="status" aria-live="polite">Saisissez un avis et une clé pour commencer.</output>
+  </main>
+  <script type="module" src="./client.js"></script>
+</body>
+</html>

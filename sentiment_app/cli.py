@@ -1,10 +1,12 @@
-"""La commande « sentiment » (TP6) : le paquet s'utilise sans connaître ses fichiers.
+"""Commande `sentiment` : API/Streamlit (kit TP6) et usage direct (manuel TP4).
 
-  sentiment --version
-  sentiment predict "Livraison rapide, très satisfait"
-  sentiment serve [--host 127.0.0.1] [--port 8000]
-  sentiment ui
+- sentiment --version
+- sentiment predict "Livraison rapide"      (résultat API JSON)
+- sentiment "Livraison rapide" --json        (résultat brut du modèle, manuel)
+- sentiment serve
+- sentiment ui
 """
+
 import argparse
 import json
 import subprocess
@@ -15,7 +17,7 @@ from sentiment_app import __version__
 
 
 def _predire(args: argparse.Namespace) -> int:
-    """Même raccord que l'API (api/model.py) : le seuil d'abstention s'applique aussi ici."""
+    """Ancienne commande du kit TP6 : applique le seuil d'abstention de l'API."""
     from api.model import load_model
 
     try:
@@ -24,6 +26,22 @@ def _predire(args: argparse.Namespace) -> int:
         print(erreur, file=sys.stderr)
         return 1
     print(json.dumps(classifieur.predict(" ".join(args.texte)), ensure_ascii=False))
+    return 0
+
+
+def _direct(texte: list[str], en_json: bool) -> int:
+    """Commande TP4 du manuel : sentiment TEXTE [--json]."""
+    from sentiment_app.predict import predict
+
+    try:
+        resultat = predict(" ".join(texte))
+    except (ValueError, FileNotFoundError) as erreur:
+        print(f"erreur : {erreur}", file=sys.stderr)
+        return 2
+    if en_json:
+        print(json.dumps(resultat, ensure_ascii=False))
+    else:
+        print(f"{resultat['label']} (confiance {resultat['score']:.0%})")
     return 0
 
 
@@ -45,11 +63,17 @@ def _interface(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    if argv and argv[0] not in ("predict", "serve", "ui") and not argv[0].startswith("-"):
+        en_json = "--json" in argv
+        texte = [mot for mot in argv if mot != "--json"]
+        return _direct(texte, en_json)
+
     parser = argparse.ArgumentParser(prog="sentiment", description="Analyse de sentiment d'avis clients.")
     parser.add_argument("--version", action="version", version=f"sentiment-app {__version__}")
     commandes = parser.add_subparsers(dest="commande", required=True)
 
-    predire = commandes.add_parser("predict", help="classe un avis, sans serveur")
+    predire = commandes.add_parser("predict", help="classe un avis avec le seuil (JSON)")
     predire.add_argument("texte", nargs="+", help="l'avis à analyser")
     predire.set_defaults(fonction=_predire)
 
@@ -58,7 +82,7 @@ def main(argv: list[str] | None = None) -> int:
     servir.add_argument("--port", type=int, default=8000)
     servir.set_defaults(fonction=_servir)
 
-    interface = commandes.add_parser("ui", help="lance la page Streamlit (l'API doit tourner)")
+    interface = commandes.add_parser("ui", help="lance Streamlit (l'API doit tourner)")
     interface.set_defaults(fonction=_interface)
 
     args = parser.parse_args(argv)

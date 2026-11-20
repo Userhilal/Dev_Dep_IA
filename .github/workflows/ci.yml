@@ -1,4 +1,3 @@
-
 name: CI
 
 on: [push, pull_request]
@@ -6,35 +5,33 @@ on: [push, pull_request]
 jobs:
   tests:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install application dependencies
-        run: python -m venv .venv && . .venv/bin/activate && pip install pandas "scikit-learn==1.5.*" "pytest==8.3.*" "fastapi==0.115.*" "httpx==0.27.*" "uvicorn==0.30.*" "streamlit==1.39.*" "shap==0.46.*"
-
+        run: python -m venv .venv && . .venv/bin/activate && pip install pandas "scikit-learn==1.5.*" "pytest==8.3.*" "fastapi==0.115.*" "httpx==0.27.*" "uvicorn==0.30.*" "streamlit==1.39.*" "shap==0.46.*" "python-dotenv==1.0.*"
       - name: Train model for tests
         run: . .venv/bin/activate && python src/make_demo.py && python src/train.py
-
       - name: Install quality tools
         run: . .venv/bin/activate && pip install -r requirements-dev.txt
-
       - name: Ruff
         run: . .venv/bin/activate && ruff check .
-
       - name: Mypy
         run: . .venv/bin/activate && mypy api
-
       - name: Tests and coverage
         run: . .venv/bin/activate && pytest -q --cov=api --cov-report=term-missing --cov-fail-under=95
-      - name: Roue installée hors du dépôt (TP6)
+      - name: Roue avec modèle installée hors du dépôt (manuel TP4)
         run: |
-          . .venv/bin/activate && python -m build --wheel
-          python -m venv /tmp/roue && /tmp/roue/bin/pip install dist/*.whl
-          cd /tmp && SENTIMENT_MODELE="$GITHUB_WORKSPACE/models/sentiment.joblib" /tmp/roue/bin/sentiment predict "Livraison rapide, produit conforme, très satisfait"
+          . .venv/bin/activate
+          mkdir -p sentiment_app/modele
+          cp models/sentiment.joblib sentiment_app/modele/
+          python -m build
+          python -m zipfile -l dist/sentiment_app-1.0.0-py3-none-any.whl | grep 'sentiment_app/modele/sentiment.joblib'
+          python -m venv /tmp/roue
+          /tmp/roue/bin/pip install dist/sentiment_app-1.0.0-py3-none-any.whl
+          cd /tmp
+          /tmp/roue/bin/sentiment predict "Livraison rapide, produit conforme, très satisfait"

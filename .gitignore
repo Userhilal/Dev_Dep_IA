@@ -5,36 +5,31 @@ __pycache__/
 *.egg-info/
 dist/
 build/
-
 # Secrets
 .env
-
-# Artefacts lourds (DVC et MLflow à partir de la semaine 7)
+# Artefacts lourds
 models/*
 !models/.gitkeep
 !models/metrics.json
 data/*
 !data/.gitkeep
 !data/sample_reviews.csv
+!data/jeu_or.csv
+!data/avis_exemple.csv
 mlruns/
 mlflow.db
-
 # Éditeurs et système
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
-
 # Tests
 .pytest_cache/
 .coverage
 htmlcov/
-
-# TP4
 .hypothesis/
 .mypy_cache/
 .ruff_cache/
-!data/jeu_or.csv
-
-# TP5
-!data/avis_exemple.csv
+# Modèle destiné à la construction de la roue et rapport local
+sentiment_app/modele/*.joblib
+docs/livrable-tp4.txt
